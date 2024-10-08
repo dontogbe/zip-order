@@ -1,7 +1,9 @@
+# This variable keeps all product catalogue. Infuture this data will be stored in the database
 product_catalog={}
 
 
-
+# Product catalogue initialization function. T
+# This should be called at the start of the program
 def init_catalog(product_info):
     for product in product_info:
         product['quantity']=0
@@ -10,7 +12,9 @@ def init_catalog(product_info):
             print('Error: product_id not found')
             continue
         product_catalog[product_id]=product
-    
+
+# Restocking function. This should be called when a restock request is received
+# This function updates the product catalogue
 def process_restock(restock):
     for stock in restock:
         product_id=stock.get('product_id',None)
@@ -23,6 +27,7 @@ def process_restock(restock):
             continue
         product['quantity']=product['quantity']+stock.get('quantity', 0)
 
+# This function processes the order and returns the quantity that could not be processed
 def process_order(order):
     print("processing order",order.get('order_id',0))
     shipped=[]
